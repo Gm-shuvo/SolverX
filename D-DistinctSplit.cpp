@@ -1,11 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-int uniqueNum(string s){
-  set<char> ch;
-  for(auto& c: s)
-    ch.insert(c);
-  return ch.size();
-}
+
 void slove()
 {
   int n;
@@ -13,13 +8,20 @@ void slove()
   string s;
   cin >> s;
   int ans = INT_MIN;
-  for (int i = 1; i < n; i++)
+  set<int>p;
+  vector<int> v(n);
+  for (int i = 0; i < n; i++)
   {
-    string str1 = s.substr(0, i);
-    string str2 = s.substr(i, n);
-    // cout << str1 << " " << str2 << endl;
-    // cout << uniqueNum(str1) << endl;
-    ans = max(ans, uniqueNum(str1) + uniqueNum(str2));
+    p.insert(s[i]);
+    v[i] = p.size();
+  }
+  p.clear();
+  // for(auto& x: v)
+  //   cout << x << endl;
+  for (int i = n - 1; i >= 1; i--){
+    p.insert(s[i]);
+    int sz = p.size();
+    ans = max(ans, sz + v[i - 1]);
   }
   cout << ans << endl;
 }
